@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>랜덤 뽑기 — 추첨, 랜덤 숫자, 순서 정하기 | JWAY</title>
+<meta name="description" content="랜덤 뽑기 무료 온라인 도구. 추첨, 랜덤 숫자 생성, 순서 섞기, 제비뽑기를 브라우저에서 바로 사용하세요. 회식 메뉴, 당번 정하기, 팀 나누기에 활용합니다.">
+<meta name="keywords" content="랜덤 뽑기, 추첨기, 랜덤 숫자, 제비뽑기, 사다리 타기, 순서 정하기, 팀 나누기">
+<meta property="og:title" content="랜덤 뽑기 — 추첨·랜덤숫자·순서정하기 | JWAY">
+<meta property="og:description" content="추첨, 랜덤 숫자, 순서 섞기, 제비뽑기를 즉시 사용.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://jwaytools.com/random-picker/og-image.png">
+<link rel="canonical" href="https://jwaytools.com/random-picker/">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#FFFBEB;--surface:#FFF;--surface-alt:#FEF3C7;--text-primary:#1C1507;--text-secondary:#6B5A2E;--text-tertiary:#A89560;--accent:#F59E0B;--accent-light:#FEF3C7;--accent-hover:#D97706;--border:#E8DFB8;--shadow-md:0 4px 16px rgba(0,0,0,.06);--radius:14px;--radius-sm:10px}
+*{margin:0;padding:0;box-sizing:border-box}body{font-family:'Noto Sans KR',-apple-system,sans-serif;background:var(--bg);color:var(--text-primary);min-height:100vh;line-height:1.7;-webkit-font-smoothing:antialiased}
+.nav{background:var(--surface);border-bottom:1px solid var(--border);padding:14px 20px;position:sticky;top:0;z-index:100}.nav-inner{max-width:760px;margin:0 auto;display:flex;align-items:center;justify-content:space-between}.nav-logo{font-size:18px;font-weight:700;color:var(--text-primary);text-decoration:none}.nav-logo span{color:var(--accent)}.nav-links{display:flex;gap:14px;flex-wrap:wrap}.nav-links a{font-size:13px;color:var(--text-secondary);text-decoration:none;font-weight:500}.nav-links a:hover{color:var(--accent)}
+.header{text-align:center;padding:48px 20px 0}.header h1{font-size:clamp(28px,5vw,40px);font-weight:700;letter-spacing:-1.5px}.header h1 em{color:var(--accent);font-style:normal}.header p{font-size:15px;color:var(--text-secondary);max-width:460px;margin:8px auto 0}
+.container{max-width:760px;margin:32px auto;padding:0 20px 20px}
+.tabs{display:flex;gap:6px;margin-bottom:20px;flex-wrap:wrap}.tab-btn{flex:1;min-width:80px;padding:12px 8px;border:1.5px solid var(--border);border-radius:var(--radius-sm);background:var(--surface);font-family:'Noto Sans KR',sans-serif;font-size:13px;font-weight:500;color:var(--text-secondary);cursor:pointer;transition:all .25s;text-align:center}.tab-btn:hover{border-color:var(--accent);color:var(--accent)}.tab-btn.active{background:var(--accent);border-color:var(--accent);color:#fff;font-weight:600}
+.calc-card{background:var(--surface);border:1.5px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow-md);padding:28px 24px}
+.calc-section{display:none}.calc-section.active{display:block}
+.field-group{margin-bottom:16px}
+.field-label{display:block;font-size:13px;font-weight:600;color:var(--text-secondary);text-transform:uppercase;letter-spacing:.8px;margin-bottom:8px}
+input[type="number"],input[type="text"],textarea{width:100%;padding:12px 16px;border:1.5px solid var(--border);border-radius:var(--radius-sm);font-family:'Noto Sans KR',sans-serif;font-size:15px;color:var(--text-primary);outline:none;background:var(--surface)}input:focus,textarea:focus{border-color:var(--accent)}
+textarea{min-height:100px;resize:vertical;font-size:14px;line-height:1.6}
+.input-row{display:flex;gap:10px;align-items:center}
+.input-row input{flex:1}
+.input-row span{font-size:14px;color:var(--text-secondary);white-space:nowrap}
+.btn-row{display:flex;gap:10px;justify-content:center;margin-top:16px;flex-wrap:wrap}
+.btn{padding:14px 32px;border:none;border-radius:var(--radius-sm);font-family:'Noto Sans KR',sans-serif;font-size:16px;font-weight:600;cursor:pointer;transition:all .2s}
+.btn-primary{background:var(--accent);color:#fff}.btn-primary:hover{background:var(--accent-hover)}
+.btn-secondary{background:var(--surface-alt);color:var(--text-secondary);border:1.5px solid var(--border)}.btn-secondary:hover{background:var(--accent-light);color:var(--accent);border-color:var(--accent)}
+.result-box{margin-top:24px;background:var(--accent-light);border:1.5px solid var(--accent);border-radius:var(--radius);padding:28px;text-align:center;min-height:80px}
+.result-main{font-family:'JetBrains Mono',monospace;font-size:clamp(36px,7vw,64px);font-weight:700;color:var(--accent);line-height:1.1}
+.result-sub{margin-top:8px;font-size:14px;color:var(--text-secondary)}
+.result-list{margin-top:16px;display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+.result-tag{padding:8px 16px;background:var(--surface);border:1.5px solid var(--border);border-radius:8px;font-size:14px;font-weight:500;color:var(--text-primary)}
+.result-tag.highlight{background:var(--accent);color:#fff;border-color:var(--accent);font-weight:700}
+.anim-shake{animation:shake .5s ease-in-out}
+@keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-8px)}40%{transform:translateX(8px)}60%{transform:translateX(-4px)}80%{transform:translateX(4px)}}
+.history-section{margin-top:16px;max-height:150px;overflow-y:auto}
+.history-item{padding:6px 12px;font-size:13px;color:var(--text-secondary);border-bottom:1px solid var(--surface-alt);font-family:'JetBrains Mono',monospace}
+.guide-section{margin-top:40px}.guide-card{background:var(--surface);border:1.5px solid var(--border);border-radius:var(--radius);padding:32px 28px}.guide-card h2{font-size:20px;font-weight:700;margin:28px 0 12px}.guide-card h2:first-child{margin-top:0}.guide-card h3{font-size:16px;font-weight:700;margin:20px 0 8px}.guide-card p{font-size:14px;color:var(--text-secondary);line-height:1.9;margin-bottom:12px}.guide-card p:last-child{margin-bottom:0}
+.guide-tip{background:var(--accent-light);border-left:4px solid var(--accent);border-radius:0 8px 8px 0;padding:14px 18px;margin:16px 0;font-size:14px;color:var(--text-secondary);line-height:1.8}.guide-tip strong{color:var(--text-primary)}
+.guide-table{width:100%;border-collapse:collapse;margin:16px 0}.guide-table th,.guide-table td{padding:10px 14px;font-size:14px;border-bottom:1px solid var(--surface-alt);text-align:left}.guide-table th{font-weight:600;background:var(--surface-alt)}.guide-table td{color:var(--text-secondary)}
+.faq-section{margin-top:32px}.section-title{font-size:20px;font-weight:700;letter-spacing:-.8px;margin-bottom:16px}.faq-item{background:var(--surface);border:1.5px solid var(--border);border-radius:10px;margin-bottom:8px;overflow:hidden}.faq-q{padding:16px 20px;font-size:15px;font-weight:600;cursor:pointer;display:flex;justify-content:space-between;align-items:center}.faq-q:hover{background:var(--surface-alt)}.faq-arrow{font-size:12px;color:var(--text-tertiary);transition:transform .3s}.faq-item.open .faq-arrow{transform:rotate(180deg)}.faq-a{max-height:0;overflow:hidden;transition:max-height .3s}.faq-a-inner{padding:0 20px 16px;font-size:14px;color:var(--text-secondary);line-height:1.8}.faq-item.open .faq-a{max-height:600px}
+.other-tools{margin-top:40px}.other-grid{display:grid;grid-template-columns:1fr;gap:10px}@media(min-width:520px){.other-grid{grid-template-columns:1fr 1fr 1fr}}.other-card{display:flex;align-items:center;gap:14px;background:var(--surface);border:1.5px solid var(--border);border-radius:12px;padding:16px 18px;text-decoration:none;color:var(--text-primary);transition:all .2s}.other-card:hover{border-color:var(--accent);transform:translateY(-2px)}.other-icon{font-size:24px}.other-name{font-size:15px;font-weight:600;margin-bottom:2px}.other-desc{font-size:12px;color:var(--text-secondary)}
+.ad-banner{border:1.5px dashed var(--border);border-radius:var(--radius-sm);padding:10px;text-align:center;margin-top:32px}
+.footer{margin-top:48px;background:var(--surface);border-top:1px solid var(--border);padding:32px 20px 20px}.footer-inner{max-width:760px;margin:0 auto;display:flex;justify-content:space-between;flex-wrap:wrap;gap:24px}.footer-col{display:flex;flex-direction:column;gap:6px}.footer-col p{font-size:13px;color:var(--text-secondary);max-width:240px;line-height:1.6}.footer-col a{font-size:13px;color:var(--text-secondary);text-decoration:none}.footer-col a:hover{color:var(--accent)}.footer-logo{font-size:18px;font-weight:700;color:var(--text-primary);text-decoration:none;margin-bottom:6px}.footer-logo span{color:var(--accent)}.footer-bottom{max-width:760px;margin:16px auto 0;padding-top:16px;border-top:1px solid var(--border);font-size:12px;color:var(--text-tertiary);text-align:center}
+@media(max-width:480px){.header{padding:32px 16px 0}.container{padding:0 12px 16px}.calc-card,.guide-card{padding:20px 16px}.nav-links{gap:10px}.nav-links a{font-size:12px}}
+</style>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5453815259196400" crossorigin="anonymous"></script>
+</head><body>
+<nav class="nav"><div class="nav-inner"><a href="https://jwaytools.com/" class="nav-logo">J<span>WAY</span></a><div class="nav-links"><a href="https://jwaytools.com/char-counter/">글자수</a><a href="https://jwaytools.com/date-calculator/">날짜</a><a href="https://jwaytools.com/percent-calculator/">퍼센트</a><a href="https://jwaytools.com/salary-calculator/">연봉</a><a href="https://jwaytools.com/bmi-calculator/">BMI</a><a href="https://jwaytools.com/exchange-rate/">환율</a><a href="https://jwaytools.com/unit-converter/">단위</a><a href="https://jwaytools.com/timer/">타이머</a><a href="https://jwaytools.com/qr-generator/">QR</a><a href="https://jwaytools.com/color-converter/">색상</a><a href="https://jwaytools.com/random-picker/">랜덤</a></div></div></nav>
+<header class="header"><h1>랜덤 <em>뽑기</em></h1><p>추첨, 랜덤 숫자, 순서 섞기, 제비뽑기를 브라우저에서 바로 사용하세요. 회식 메뉴, 당번, 팀 나누기에 활용합니다.</p></header>
+<main class="container">
+<div class="tabs">
+<button class="tab-btn active" onclick="switchTab('number')">🔢 랜덤 숫자</button>
+<button class="tab-btn" onclick="switchTab('pick')">🎯 추첨 뽑기</button>
+<button class="tab-btn" onclick="switchTab('shuffle')">🔀 순서 섞기</button>
+<button class="tab-btn" onclick="switchTab('coin')">🪙 동전 던지기</button>
+</div>
+<div class="calc-card">
+<!-- 랜덤 숫자 -->
+<div id="section-number" class="calc-section active">
+<div class="field-group"><label class="field-label">범위 설정</label><div class="input-row"><input type="number" id="numMin" value="1"><span>~</span><input type="number" id="numMax" value="100"></div></div>
+<div class="field-group"><label class="field-label">생성 개수</label><div class="input-row"><input type="number" id="numCount" value="1" min="1" max="100"><span>개</span></div></div>
+<div class="btn-row"><button class="btn btn-primary" onclick="genNumber()">🎲 숫자 뽑기</button></div>
+<div class="result-box" id="numberResult" style="display:none"></div>
+<div class="history-section" id="numberHistory"></div>
+</div>
+<!-- 추첨 뽑기 -->
+<div id="section-pick" class="calc-section">
+<div class="field-group"><label class="field-label">항목 입력 (줄바꿈으로 구분)</label><textarea id="pickItems" placeholder="짜장면&#10;짬뽕&#10;탕수육&#10;볶음밥&#10;냉면"></textarea></div>
+<div class="field-group"><label class="field-label">뽑을 개수</label><div class="input-row"><input type="number" id="pickCount" value="1" min="1"><span>개</span></div></div>
+<div class="btn-row"><button class="btn btn-primary" onclick="genPick()">🎯 추첨하기</button></div>
+<div class="result-box" id="pickResult" style="display:none"></div>
+</div>
+<!-- 순서 섞기 -->
+<div id="section-shuffle" class="calc-section">
+<div class="field-group"><label class="field-label">항목 입력 (줄바꿈으로 구분)</label><textarea id="shuffleItems" placeholder="홍길동&#10;김철수&#10;이영희&#10;박지민&#10;최유진"></textarea></div>
+<div class="btn-row"><button class="btn btn-primary" onclick="genShuffle()">🔀 순서 섞기</button></div>
+<div class="result-box" id="shuffleResult" style="display:none"></div>
+</div>
+<!-- 동전 던지기 -->
+<div id="section-coin" class="calc-section">
+<div class="btn-row"><button class="btn btn-primary" style="padding:20px 48px;font-size:20px" onclick="genCoin()">🪙 동전 던지기</button></div>
+<div class="result-box" id="coinResult" style="display:none"></div>
+<div class="history-section" id="coinHistory"></div>
+</div>
+</div>
+
+<div class="guide-section"><div class="guide-card">
+<h2>랜덤 뽑기란?</h2>
+<p>랜덤 뽑기는 무작위(랜덤)로 항목을 선택하는 도구입니다. 일상생활에서 "누가 할까?", "뭐 먹을까?", "순서를 어떻게 정할까?" 같은 결정을 내려야 할 때 공정하게 무작위로 뽑아주는 역할을 합니다. 사다리 타기, 제비뽑기, 동전 던지기의 디지털 버전이라고 생각하면 됩니다.</p>
+<p>이 도구는 네 가지 모드를 제공합니다. 랜덤 숫자 생성, 목록에서 추첨 뽑기, 순서 섞기(셔플), 동전 던지기입니다. JavaScript의 Math.random() 함수를 사용하여 충분히 공정한 무작위 결과를 제공합니다.</p>
+
+<h2>활용 사례</h2>
+<h3>회식·모임</h3>
+<p>점심 메뉴를 못 정할 때 후보를 입력하고 추첨 뽑기를 하면 됩니다. 회식 장소, 노래방 첫 번째 순서, 벌칙 게임 등에도 활용할 수 있습니다. "짜장면, 짬뽕, 초밥, 삼겹살"을 입력하고 1개를 뽑으면 공정하게 결정됩니다.</p>
+<h3>업무·학교</h3>
+<p>발표 순서 정하기, 조 편성, 당번 정하기 등에 순서 섞기 모드를 사용하면 편리합니다. 팀원 이름을 입력하고 섞으면 랜덤 순서가 나옵니다. 경품 추첨이나 이벤트 당첨자 선정에도 추첨 뽑기 모드를 활용할 수 있습니다.</p>
+<h3>게임·놀이</h3>
+<p>보드게임 플레이 순서, 가위바위보 대신 동전 던지기, 랜덤 숫자로 벌칙 정하기 등 다양한 놀이에서 사용할 수 있습니다. 동전 던지기 모드는 앞면/뒷면이 깔끔하게 표시되어 직관적입니다.</p>
+
+<div class="guide-tip"><strong>팁:</strong> 랜덤 숫자를 여러 개 뽑을 때 "중복 없이" 뽑고 싶다면 생성 개수를 범위보다 작게 설정하세요. 이 도구는 중복 없는 숫자를 제공합니다.</div>
+
+<h2>공정성에 대하여</h2>
+<p>이 도구는 JavaScript의 Math.random() 함수로 난수를 생성합니다. 이는 완전한 "진짜 난수"(True Random)가 아닌 "의사 난수"(Pseudo Random)이지만, 일상적인 추첨이나 순서 정하기 용도로는 충분히 공정합니다. 암호학적 보안이 필요한 용도(복권 추첨 등)에는 적합하지 않지만, 회식 메뉴 정하기나 발표 순서 뽑기에는 누구도 결과를 예측하거나 조작할 수 없을 정도로 무작위성이 보장됩니다.</p>
+
+<h2>이 도구의 주요 기능</h2>
+<p>네 가지 모드(랜덤 숫자, 추첨 뽑기, 순서 섞기, 동전 던지기)를 한 페이지에서 탭 전환으로 사용할 수 있습니다. 랜덤 숫자는 범위와 개수를 설정할 수 있고, 추첨 뽑기는 목록에서 원하는 수만큼 뽑을 수 있습니다. 순서 섞기는 입력한 항목들의 순서를 완전히 무작위로 재배치합니다. 숫자 뽑기와 동전 던지기에는 이전 결과를 확인할 수 있는 기록 기능도 있습니다. 모든 처리는 브라우저에서 이루어지며 입력 데이터는 어디에도 저장되지 않습니다.</p>
+</div></div>
+
+<div class="faq-section"><h2 class="section-title">자주 묻는 질문</h2>
+<div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)"><span>결과가 정말 랜덤인가요?</span><span class="faq-arrow">▼</span></div><div class="faq-a"><div class="faq-a-inner">네, JavaScript의 Math.random()은 의사 난수 생성기(PRNG)를 사용하며, 일상적인 추첨 용도로는 충분히 공정한 무작위성을 제공합니다. 같은 숫자가 나올 확률과 다른 숫자가 나올 확률은 동일합니다.</div></div></div>
+<div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)"><span>중복 없이 숫자를 뽑을 수 있나요?</span><span class="faq-arrow">▼</span></div><div class="faq-a"><div class="faq-a-inner">네, 여러 개의 숫자를 뽑을 때 중복이 발생하지 않도록 처리됩니다. 단, 뽑을 개수가 범위(최대-최소+1)를 초과하면 뽑을 수 없으므로 범위를 적절히 설정해주세요.</div></div></div>
+<div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)"><span>뽑기 기록은 저장되나요?</span><span class="faq-arrow">▼</span></div><div class="faq-a"><div class="faq-a-inner">페이지가 열려 있는 동안은 랜덤 숫자와 동전 던지기의 기록이 화면에 표시됩니다. 하지만 페이지를 닫거나 새로고침하면 모든 기록이 사라집니다. 중요한 결과는 스크린샷을 찍어두세요.</div></div></div>
+<div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)"><span>최대 몇 개까지 뽑을 수 있나요?</span><span class="faq-arrow">▼</span></div><div class="faq-a"><div class="faq-a-inner">랜덤 숫자는 최대 100개, 추첨 뽑기와 순서 섞기는 입력한 항목 수만큼 뽑을 수 있습니다. 일반적인 사용에는 충분한 범위입니다.</div></div></div>
+</div>
+
+<section class="other-tools"><h2 class="section-title">다른 무료 도구</h2><div class="other-grid">
+<a href="https://jwaytools.com/timer/" class="other-card"><span class="other-icon">⏱️</span><div><div class="other-name">온라인 타이머</div><div class="other-desc">타이머·스톱워치·알람</div></div></a>
+<a href="https://jwaytools.com/percent-calculator/" class="other-card"><span class="other-icon">🔢</span><div><div class="other-name">퍼센트 계산기</div><div class="other-desc">할인율, 증감률, 비율 계산</div></div></a>
+<a href="https://jwaytools.com/date-calculator/" class="other-card"><span class="other-icon">📅</span><div><div class="other-name">날짜 계산기</div><div class="other-desc">D-Day, 일수 계산, 며칠 후/전</div></div></a>
+</div></section>
+
+<div class="ad-banner"><ins class="kakao_ad_area" style="display:none;" data-ad-unit="DAN-dY7YmaHnk31ijIwa" data-ad-width="300" data-ad-height="250"></ins><script type="text/javascript" src="//t1.daumcdn.net/kas/static/ba.min.js" async></script></div>
+</main>
+
+<footer class="footer"><div class="footer-inner"><div class="footer-col"><a href="https://jwaytools.com/" class="footer-logo">J<span>WAY</span></a><p>매일 필요한 실용 도구를 무료로 제공합니다. 모든 계산은 브라우저에서 처리되며 개인정보를 수집하지 않습니다.</p></div><div class="footer-col"><a href="https://jwaytools.com/char-counter/">글자수 세기</a><a href="https://jwaytools.com/date-calculator/">날짜 계산기</a><a href="https://jwaytools.com/percent-calculator/">퍼센트 계산기</a><a href="https://jwaytools.com/salary-calculator/">연봉 실수령액</a><a href="https://jwaytools.com/bmi-calculator/">BMI 계산기</a><a href="https://jwaytools.com/exchange-rate/">환율 계산기</a><a href="https://jwaytools.com/unit-converter/">단위 변환기</a><a href="https://jwaytools.com/timer/">온라인 타이머</a><a href="https://jwaytools.com/qr-generator/">QR코드 생성기</a><a href="https://jwaytools.com/color-converter/">색상 변환기</a><a href="https://jwaytools.com/random-picker/">랜덤 뽑기</a><a href="https://jwaytools.com/privacy-policy.html">개인정보처리방침</a></div></div><div class="footer-bottom">© 2025 JWAY. All rights reserved.</div></footer>
+
+<script>
+let numHistory=[],coinHistory=[];
+function switchTab(tab){const tabs=['number','pick','shuffle','coin'];document.querySelectorAll('.tab-btn').forEach((b,i)=>b.classList.toggle('active',tabs[i]===tab));document.querySelectorAll('.calc-section').forEach(s=>s.classList.remove('active'));document.getElementById('section-'+tab).classList.add('active')}
+function genNumber(){const min=parseInt(document.getElementById('numMin').value)||1,max=parseInt(document.getElementById('numMax').value)||100,count=Math.min(parseInt(document.getElementById('numCount').value)||1,100);if(min>max){alert('최소값이 최대값보다 큽니다.');return}const range=max-min+1;if(count>range){alert('범위('+range+'개)보다 많은 수를 뽑을 수 없습니다.');return}const nums=new Set();while(nums.size<count){nums.add(min+Math.floor(Math.random()*range))}const arr=[...nums].sort((a,b)=>a-b);const box=document.getElementById('numberResult');box.style.display='';if(count===1){box.innerHTML='<div class="result-main anim-shake">'+arr[0]+'</div><div class="result-sub">'+min+' ~ '+max+' 범위에서 뽑기</div>'}else{box.innerHTML='<div class="result-sub">'+min+' ~ '+max+' 범위에서 '+count+'개 뽑기</div><div class="result-list">'+arr.map(n=>'<span class="result-tag highlight">'+n+'</span>').join('')+'</div>'}numHistory.unshift(arr.join(', '));if(numHistory.length>10)numHistory.pop();document.getElementById('numberHistory').innerHTML=numHistory.map((h,i)=>'<div class="history-item">#'+(i+1)+': '+h+'</div>').join('')}
+function genPick(){const raw=document.getElementById('pickItems').value.trim();if(!raw){alert('항목을 입력해주세요.');return}const items=raw.split('\n').map(s=>s.trim()).filter(Boolean);const count=Math.min(parseInt(document.getElementById('pickCount').value)||1,items.length);const shuffled=[...items];for(let i=shuffled.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[shuffled[i],shuffled[j]]=[shuffled[j],shuffled[i]]}const picked=shuffled.slice(0,count);const box=document.getElementById('pickResult');box.style.display='';if(count===1){box.innerHTML='<div class="result-main anim-shake">'+picked[0]+'</div><div class="result-sub">'+items.length+'개 중 1개 추첨</div>'}else{box.innerHTML='<div class="result-sub">'+items.length+'개 중 '+count+'개 추첨</div><div class="result-list">'+items.map(it=>'<span class="result-tag'+(picked.includes(it)?' highlight':'')+'">'+it+'</span>').join('')+'</div>'}}
+function genShuffle(){const raw=document.getElementById('shuffleItems').value.trim();if(!raw){alert('항목을 입력해주세요.');return}const items=raw.split('\n').map(s=>s.trim()).filter(Boolean);for(let i=items.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[items[i],items[j]]=[items[j],items[i]]}const box=document.getElementById('shuffleResult');box.style.display='';box.innerHTML='<div class="result-sub">순서가 섞였습니다</div><div class="result-list">'+items.map((it,i)=>'<span class="result-tag"><b>'+(i+1)+'.</b> '+it+'</span>').join('')+'</div>'}
+function genCoin(){const result=Math.random()<0.5?'앞면':'뒷면';const emoji=result==='앞면'?'🟡':'⚪';const box=document.getElementById('coinResult');box.style.display='';box.innerHTML='<div class="result-main anim-shake">'+emoji+' '+result+'</div>';coinHistory.unshift(result);if(coinHistory.length>20)coinHistory.pop();const heads=coinHistory.filter(x=>x==='앞면').length,tails=coinHistory.length-heads;document.getElementById('coinHistory').innerHTML='<div class="history-item">앞면 '+heads+'회 / 뒷면 '+tails+'회 (총 '+coinHistory.length+'회)</div>'+coinHistory.slice(0,10).map((h,i)=>'<div class="history-item">#'+(i+1)+': '+(h==='앞면'?'🟡':'⚪')+' '+h+'</div>').join('')}
+function toggleFaq(el){el.parentElement.classList.toggle('open')}
+</script></body></html>
